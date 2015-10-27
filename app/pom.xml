@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.hibernate</groupId>
+  <artifactId>app</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <name>app</name>
+  
+  <parent>
+    <groupId>com.hibernate</groupId>
+    <artifactId>hibernate1</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+  
+  <dependencies>
+    <dependency>
+      <groupId>com.hibernate.service</groupId>
+      <artifactId>Service</artifactId>
+    </dependency>
+    
+  <dependency>
+      <groupId>commons-validator</groupId>
+	    <artifactId>commons-validator</artifactId>
+	</dependency>
+  </dependencies>
+  
+  <build>
+    <plugins>
+      <plugin>
+       <artifactId>maven-assembly-plugin</artifactId>
+       <version>2.5.4</version>
+       <executions>
+        <execution>
+         <id>create-executable-jar</id>
+        <phase>package</phase>
+        <goals>
+          <goal>single</goal>
+        </goals>
+        <configuration>
+         <descriptorRefs>
+          <descriptorRef>jar-with-dependencies</descriptorRef>
+         </descriptorRefs>
+         <archive>
+          <manifest>
+            <mainClass>Main</mainClass>
+          </manifest>
+         </archive>
+        </configuration>
+       </execution>
+      </executions>
+     </plugin>
+    </plugins>
+ </build>
+ 
+  <profiles>
+  <profile>
+    <id>exec</id>
+    <activation>
+      <!--<activeByDefault>true</activeByDefault>-->
+    </activation>
+    <build>
+      <plugins>
+        <plugin>
+           <groupId>org.codehaus.mojo</groupId>
+           <artifactId>exec-maven-plugin</artifactId>
+           <version>1.2.1</version>
+           <executions>
+            <execution>
+              <id>execute-java</id>
+              <phase>compile</phase>
+              <goals>
+                <goal>java</goal>
+              </goals>
+            </execution>
+           </executions>
+           <configuration>
+            <mainClass>Main</mainClass>
+          </configuration>
+        </plugin>
+      </plugins>
+    </build>
+  </profile>
+  </profiles>
+ 
+</project>
+
