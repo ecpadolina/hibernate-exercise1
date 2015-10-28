@@ -1,6 +1,6 @@
 import com.hibernate.model.*;
 import com.hibernate.service.*;
-
+import com.hibernate.dao.HibernateUtil;
 import java.util.Scanner;
 import java.util.Date;
 import java.text.SimpleDateFormat;
@@ -13,11 +13,18 @@ import java.util.Collections;
 
 public class Options{
   
-  private PersonManager pm;
+  private PersonManagerHibernateImpl pm;
+  private RoleManagerHibernateImpl rm;
   private Scanner sc = new Scanner(System.in);
   private Validation v = new Validation();
   public Options(){
-    pm = new PersonManager();
+  	HibernateUtil.createSessionFactory();
+    pm = new PersonManagerHibernateImpl();
+    rm = new RoleManagerHibernateImpl();
+  }
+
+  public void closeSessionFactory(){
+  	HibernateUtil.closeSessionFactory();
   }
   
   public Person getPersonInfo(Person person){
@@ -96,7 +103,7 @@ public class Options{
 	    		    System.out.println("Contact information already exists");
 	    		    contactExist = true;
 	    		  }
-	    		}
+	    	}
   		}
   		if(!contactExist){
   		  set.add(contact);
@@ -262,9 +269,9 @@ public class Options{
     }
 	}
 	
-	public Role getRole(){
+	public Role getRole(int roldeId){
 		int roleId = v.validIntInput("Role Id: ");
-		return pm.getRole(roleId);
+		return rm.getRole(roleId);
 	}
 	
 	public Set<Role> newRole(Set<Role> set){
@@ -299,8 +306,8 @@ public class Options{
 	}
 	
 	public void listRoles(){
-		ArrayList<Role> list = (ArrayList<Role>)pm.listRoles();
-		System.out.println("Roles:");
+		ArrayList<Role> list = (ArrayList<Role>)rm.listRoles();
+		System.out.println("Roles: ");
 		for(Role role: list){
 			System.out.println("[" + role.getRole_id() + "] " + role.getRole_type() + "");
 		}
@@ -371,7 +378,7 @@ public class Options{
 	public void updateRoleStatus(){
 		listRoles();
 		int id = v.validIntInput("Role ID: ");
-		Role role = pm.getRole(id);
+		Role role = rm.getRole(id);
 
 		if(role != null){
 			if(role.getIsActive()){
@@ -379,7 +386,7 @@ public class Options{
 				String choice = sc.next();
 				if(choice.equalsIgnoreCase("y") || choice.equalsIgnoreCase("yes")){
 					role.setIsActive(false);
-					pm.updateRole(role);
+					rm.updateRole(role);
 				} else
 					System.out.println("Role deactivation cancelled");
 			} else {
@@ -387,7 +394,7 @@ public class Options{
 				String choice = sc.next();
 				if(choice.equalsIgnoreCase("y") || choice.equalsIgnoreCase("yes")){
 					role.setIsActive(true);
-					pm.updateRole(role);
+					rm.updateRole(role);
 				} else
 					System.out.println("Role activation cancelled");
 			}

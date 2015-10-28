@@ -1,11 +1,12 @@
 import java.util.*;
 
 public class Main{
-  private static Options op = new Options();  
-  private static Scanner sc = new Scanner(System.in);
-  private static Validation v = new Validation();
   public static void main(String[] args){
     int option, option2;
+    Options op = new Options();  
+    Scanner sc = new Scanner(System.in);
+    Validation v = new Validation();
+
     String optionDisplay = "";
     
     do{
@@ -128,9 +129,10 @@ public class Main{
               op.listPerson(order, "gwa");
               break;
           }
-          break;         
+          break;
+        case 5:
+          op.closeSessionFactory();
       }
-      break;
     }while(option != 5);
   }
 }

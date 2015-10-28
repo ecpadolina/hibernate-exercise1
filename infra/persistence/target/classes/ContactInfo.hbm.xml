@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.hibernate.model.ContactInfo" table="CONTACTINFO">
+	<id name="id" type="int" column="contact_id">
+	    <generator class="identity"/>
+	 </id>
+	<property name="contactType" column="contact_type" type="string"/>
+	<property name="contactInfo" column="contact_info" type="string" />
+	</class>
+</hibernate-mapping>
