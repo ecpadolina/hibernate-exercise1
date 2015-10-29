@@ -15,7 +15,7 @@
  		<persistence strategy="localTempSwap" />
     </defaultCache>
     <cache
-        name="com.hibernate.model.Role"
+        name="ecp.hibernate.model.Role"
         maxEntriesLocalHeap="1000"
         eternal="false"
         timeToIdleSeconds="300"

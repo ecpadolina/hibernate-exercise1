@@ -3,7 +3,7 @@
         "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class name="com.hibernate.model.Role" table="roles">
+	<class name="ecp.hibernate.model.Role" table="roles">
     <cache usage="read-write" />
 	  <id name="role_id" type="int" column="role_id">
 	    <generator class="identity"/>
@@ -14,7 +14,7 @@
       <key>
         <column name="role_id" not-null="true" />
       </key>
-      <many-to-many entity-name="com.hibernate.model.Person">
+      <many-to-many entity-name="ecp.hibernate.model.Person">
         <column name="person_id" not-null="true" />
       </many-to-many>
     </set>

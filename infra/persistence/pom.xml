@@ -3,11 +3,11 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>com.hibernate</groupId>
+    <groupId>ecp.hibernate</groupId>
     <artifactId>Infra</artifactId>
     <version>1.0-SNAPSHOT</version>
   </parent>
-  <groupId>com.hibernate.infra</groupId>
+  <groupId>ecp.hibernate.infra</groupId>
   <artifactId>persistence</artifactId>
   <version>1.0-SNAPSHOT</version>
   <name>persistence</name>
