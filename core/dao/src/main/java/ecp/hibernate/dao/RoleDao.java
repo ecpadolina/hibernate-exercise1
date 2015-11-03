@@ -3,8 +3,8 @@ package ecp.hibernate.dao;
 import ecp.hibernate.model.Role;
 import java.util.List;
 
-interface RoleDao{
+public interface RoleDao{
 	List listRoles();
 	Role getRole(int roleId);
-	void updateRole(Role role);
+	Boolean updateRole(Role role);
 }

@@ -1,32 +1,32 @@
 package ecp.hibernate.dao;
 
-import ecp.hibernate.dao.commands.GetPerson;
-import ecp.hibernate.dao.commands.AddPerson;
-import ecp.hibernate.dao.commands.DeletePerson;
-import ecp.hibernate.dao.commands.UpdatePerson;
-import ecp.hibernate.dao.commands.ListPerson;
+import ecp.hibernate.dao.commands.Get;
+import ecp.hibernate.dao.commands.Add;
+import ecp.hibernate.dao.commands.Delete;
+import ecp.hibernate.dao.commands.Update;
+import ecp.hibernate.dao.commands.GetList;
 import ecp.hibernate.model.Person;
 import java.util.List;
 
 public class PersonDaoHibernateImpl implements PersonDao{
 	
-	public void addPerson(Person person) {
-        HibernateUtil.perform(new AddPerson(person), Integer.class);
+	public Boolean addPerson(Person person) {
+        return HibernateUtil.perform(new Add(person), Boolean.class);
     }
 
     public Person getPerson(int personID) {
-        return HibernateUtil.perform(new GetPerson(personID), Person.class);
+        return HibernateUtil.perform(new Get(personID, Person.class), Person.class);
     }
 
-    public void updatePerson(Person updatedPerson) {
-        HibernateUtil.perform(new UpdatePerson(updatedPerson), Person.class);
+    public Boolean updatePerson(Person updatedPerson) {
+        return HibernateUtil.perform(new Update(updatedPerson), Boolean.class);
     }
 
-    public void deletePerson(int personID) {
-        HibernateUtil.perform(new DeletePerson(personID), Person.class);
+    public Boolean deletePerson(Person person) {
+        return HibernateUtil.perform(new Delete(person), Boolean.class);
     }
 
     public List listPerson(int order, String column) {
-        return HibernateUtil.perform(new ListPerson(order, column), List.class);
+        return HibernateUtil.perform(new GetList(order, column, Person.class), List.class);
 	}
 }

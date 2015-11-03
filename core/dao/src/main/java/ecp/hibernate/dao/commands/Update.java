@@ -1,15 +1,15 @@
 package ecp.hibernate.dao.commands;
 
-import ecp.hibernate.model.Person; 
+import ecp.hibernate.model.Person;
 import ecp.hibernate.dao.Command;
 import org.hibernate.Session;
 
-public class GetPerson implements Command{
-	private Integer id;
+public class Update<T> implements Command{
 	private Session session;
+	private T t;
 
-	public GetPerson(Integer id){
-		this.id = id;
+	public Update(T t){
+		this.t = t;
 	}
 
 	public void setSession(Session session){
@@ -17,7 +17,7 @@ public class GetPerson implements Command{
 	}
 
 	public Object execute(){
-		Person person = (Person) session.get(Person.class, id);
-		return person;
+		session.update(t);
+		return new Boolean(true);
 	}
 }

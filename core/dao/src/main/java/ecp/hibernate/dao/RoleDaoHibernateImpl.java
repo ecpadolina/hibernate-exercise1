@@ -1,20 +1,20 @@
 package ecp.hibernate.dao;
 
-import ecp.hibernate.dao.commands.GetRole;
-import ecp.hibernate.dao.commands.ListRoles;
-import ecp.hibernate.dao.commands.UpdateRole;
+import ecp.hibernate.dao.commands.Get;
+import ecp.hibernate.dao.commands.GetList;
+import ecp.hibernate.dao.commands.Update;
 import ecp.hibernate.model.Role;
 import java.util.List;
 
-public class RoleDaoHibernateImpl{
+public class RoleDaoHibernateImpl implements RoleDao{
 
 	public List listRoles() {
-        return HibernateUtil.perform(new ListRoles(), List.class);
+        return HibernateUtil.perform(new GetList(1, "role_id", Role.class), List.class);
     }
     public Role getRole(int roleId) {
-        return HibernateUtil.perform(new GetRole(roleId), Role.class);
+        return HibernateUtil.perform(new Get(roleId, Role.class), Role.class);
     }
-    public void updateRole(Role role){
-    	HibernateUtil.perform(new UpdateRole(role), Role.class);
+    public Boolean updateRole(Role role){
+    	return HibernateUtil.perform(new Update(role), Boolean.class);
     }
 }

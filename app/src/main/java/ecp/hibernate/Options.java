@@ -1,6 +1,9 @@
 import ecp.hibernate.model.*;
 import ecp.hibernate.service.*;
 import ecp.hibernate.dao.HibernateUtil;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.ObjectNotFoundException;
 import java.util.Scanner;
 import java.util.Date;
 import java.text.SimpleDateFormat;
@@ -13,8 +16,8 @@ import java.util.Collections;
 
 public class Options{
   
-  private PersonManagerHibernateImpl pm;
-  private RoleManagerHibernateImpl rm;
+  private PersonManager pm;
+  private RoleManager rm;
   private Scanner sc = new Scanner(System.in);
   private Validation v = new Validation();
   public Options(){
@@ -144,12 +147,16 @@ public class Options{
 	  System.out.print("Person ID: ");
 	  int id = sc.nextInt();
 	  Person person = pm.getPerson(id);
-	  Set<ContactInfo> contacts = person.getContacts();
-	  if(!contacts.isEmpty()){
-		  System.out.println(person.getName().toString() + " contacts:");
-		  displayContacts("",contacts);
-	  } else {
-	  		System.out.println("Person has no contacts!");
+	  if(person != null){
+		  Set<ContactInfo> contacts = person.getContacts();
+		  if(!contacts.isEmpty()){
+			  System.out.println(person.getName().toString() + " contacts:");
+			  displayContacts("",contacts);
+		  } else {
+		  		System.out.println("Person has no contacts!");
+		  }
+	  } else{
+	  		System.out.println("Person doesn't exist!");
 	  }
 	}
 	
@@ -174,6 +181,7 @@ public class Options{
 		    contactInfo.remove(oldContact);
 		    contactInfo.add(newContact);
 		    person.setContacts(contactInfo);
+		    System.out.println("Contact updated!");
 		    pm.updatePerson(person);
 	    } else {
 	    	System.out.println("Person has no contacts!");
@@ -186,20 +194,27 @@ public class Options{
 	public void deleteContactOfPerson(){
 	  int id = v.validIntInput("Person ID: ");
 	  Person person = pm.getPerson(id);
+	  boolean check = false;
 	  if(person != null){
 	    Set<ContactInfo> contactInfo = person.getContacts();
 	    if(!contactInfo.isEmpty()){
 		    displayContacts("",contactInfo);
 		    int contactIdToDelete = v.validIntInput("Enter Contact Id: ");
 		    ContactInfo contactToDelete = new ContactInfo();
-		    
 		    for(ContactInfo tempContactInfo : contactInfo){
 		      if(tempContactInfo.getId() == contactIdToDelete){
 		        contactInfo.remove(tempContactInfo);
+		        check = true;
+		        break;
 		      }
 		    }
-		    person.setContacts(contactInfo);
-		    pm.updatePerson(person);
+		    if(check){
+			    person.setContacts(contactInfo);
+			    System.out.println("Contact removed!");
+			    pm.updatePerson(person);
+			} else {
+				System.out.println("Contact doesn't exist!");
+			}
 		 } else {
 		 	System.out.println("Person has no contacts!");
 		 }
@@ -232,7 +247,7 @@ public class Options{
 		Person person = pm.getPerson(id);
 
 		if(person!=null){
-			pm.deletePerson(id);
+			pm.deletePerson(person);
 		} else {
 			System.out.println("Person does not exist.");
 		}	
@@ -329,15 +344,19 @@ public class Options{
 	public void listPersonRoles(){
 	  int id = v.validIntInput("Person ID: ");
 	  Person person = pm.getPerson(id);
-	  Set<Role> personRoles = person.getRoles();
-	  if(!personRoles.isEmpty()){
-		  System.out.println(person.getName().toString() + "'s Roles: ");
-		  for(Role role : personRoles){
-		  	if(role.getIsActive())
-		    	System.out.println("[" + role.getRole_id() + "] " + role.getRole_type());
+	  if(person != null){
+		  Set<Role> personRoles = person.getRoles();
+		  if(!personRoles.isEmpty()){
+			  System.out.println(person.getName().toString() + "'s Roles: ");
+			  for(Role role : personRoles){
+			  	if(role.getIsActive())
+			    	System.out.println("[" + role.getRole_id() + "] " + role.getRole_type());
+			  }
+		  } else {
+		  		System.out.println("Person has no roles!");
 		  }
 	  } else {
-	  		System.out.println("Person has no roles!");
+	  		System.out.println("Person does not exist!");
 	  }
 	}
 	
@@ -363,6 +382,7 @@ public class Options{
 	          person.setRoles(personRoles);
 	          System.out.println("Role removed");
 	          pm.updatePerson(person);
+	          break;
 	        } else {
 	            System.out.println("Role doesn't exist..");
 	        }

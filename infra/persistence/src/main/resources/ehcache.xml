@@ -12,7 +12,7 @@
         diskSpoolBufferSizeMB="30"
         maxEntriesLocalDisk="10000000"
         diskExpiryThreadIntervalSeconds="120">
- 		<persistence strategy="localTempSwap" />
+        <persistence strategy="localTempSwap" />
     </defaultCache>
     <cache
         name="ecp.hibernate.model.Role"

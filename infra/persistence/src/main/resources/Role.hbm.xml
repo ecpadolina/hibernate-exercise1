@@ -4,13 +4,13 @@
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 	<class name="ecp.hibernate.model.Role" table="roles">
-    <cache usage="read-write" />
+    <cache usage="read-write"/>
 	  <id name="role_id" type="int" column="role_id">
 	    <generator class="identity"/>
 	  </id>
       <property name="role_type" column="role_type" type="string"/>
       <property name="isActive" column="isActive" type="boolean" not-null="true"/>
-    <set name="persons" table="person_role" lazy="false" cascade="all">
+    <set name="persons" table="person_role" lazy="true" cascade="all">
       <key>
         <column name="role_id" not-null="true" />
       </key>

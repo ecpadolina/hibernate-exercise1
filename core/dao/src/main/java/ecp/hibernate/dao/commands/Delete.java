@@ -4,12 +4,12 @@ import ecp.hibernate.model.Person;
 import ecp.hibernate.dao.Command;
 import org.hibernate.Session;
 
-public class AddPerson implements Command{
-	private Person person;
+public class Delete<T> implements Command{
 	private Session session;
+	private T t;
 
-	public AddPerson(Person person){
-		this.person = person;
+	public Delete(T t){
+		this.t = t;
 	}
 
 	public void setSession(Session session){
@@ -17,6 +17,7 @@ public class AddPerson implements Command{
 	}
 
 	public Object execute(){
-		return (Integer) session.save(person);
+		session.delete(t);
+		return new Boolean(true);
 	}
 }

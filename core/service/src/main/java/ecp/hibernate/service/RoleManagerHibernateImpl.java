@@ -1,13 +1,14 @@
 package ecp.hibernate.service;
 
 import ecp.hibernate.dao.RoleDaoHibernateImpl;
+import ecp.hibernate.dao.RoleDao;
 import ecp.hibernate.model.Role;
 
 import java.util.List;
 
 public class RoleManagerHibernateImpl implements RoleManager{
 
-  private RoleDaoHibernateImpl rdao;
+  private RoleDao rdao;
   
   public RoleManagerHibernateImpl(){
     rdao = new RoleDaoHibernateImpl();

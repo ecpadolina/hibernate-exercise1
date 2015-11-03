@@ -4,12 +4,14 @@ import ecp.hibernate.model.Role;
 import org.hibernate.Session;
 import ecp.hibernate.dao.Command;
 
-public class GetRole implements Command{
+public class Get<T> implements Command{
 	private Session session;
 	private Integer id;
+	private Class<T> entityClass;
 
-	public GetRole(Integer id){
+	public Get(Integer id, Class<T> entityClass){
 		this.id = id;
+		this.entityClass = entityClass;
 	}
 
 	public void setSession(Session session){
@@ -17,7 +19,6 @@ public class GetRole implements Command{
 	}
 
 	public Object execute(){
-		Role role = (Role)session.get(Role.class, id);
-		return role;
+		return session.get(entityClass, id);
 	}
 }

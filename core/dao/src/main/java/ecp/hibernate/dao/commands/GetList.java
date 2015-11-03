@@ -7,14 +7,16 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.Order;
 import java.util.List;
 
-public class ListPerson implements Command{
+public class GetList<T> implements Command{
 	private Session session;
 	private String column;
 	private int order;
+	private Class<T> entityClass;
 
-	public ListPerson(int order, String column){
+	public GetList(int order, String column, Class<T> entityClass){
 		this.column = column;
 		this.order = order;
+		this.entityClass = entityClass;
 	}
 
 	public void setSession(Session session){
@@ -24,9 +26,9 @@ public class ListPerson implements Command{
 	public Object execute(){
 		List list = null;
 		if(order == 1){
-			list = session.createCriteria(Person.class).addOrder(Order.asc(column)).list();
+			list = session.createCriteria(entityClass).addOrder(Order.asc(column)).setCacheable(true).list();
 		} else {
-			list = session.createCriteria(Person.class).addOrder(Order.desc(column)).list();
+			list = session.createCriteria(entityClass).addOrder(Order.desc(column)).setCacheable(true).list();
 		}
 		return list;
 	}

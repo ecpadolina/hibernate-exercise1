@@ -1,13 +1,17 @@
 package ecp.hibernate.dao;
 
 import org.hibernate.HibernateException;
+import org.hibernate.ObjectDeletedException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.stat.Statistics;
+import org.hibernate.stat.EntityStatistics;
 
 public class HibernateUtil{
 	private static SessionFactory factory;
+    private static Session session;
     public static void createSessionFactory(){
         try {
             factory = new Configuration().configure("hibernate.cfg.xml")
@@ -21,10 +25,17 @@ public class HibernateUtil{
         factory.close();
     }
 
-    public static <T> T perform(Command command, Class<T> returnClass) {
-        Session session = factory.openSession();
-        Transaction transaction = session.beginTransaction();
+    public static SessionFactory getSessionFactory(){
+        return factory;
+    }
 
+    public static Session getSession(){
+        return session;
+    }
+
+    public static <T> T perform(Command command, Class<T> returnClass) {
+        session = factory.openSession();
+        Transaction transaction = session.beginTransaction();
         Object returnObject = null;
 
         try {
@@ -34,6 +45,9 @@ public class HibernateUtil{
 		} catch (HibernateException e) {
             if (transaction != null) {
                 transaction.rollback();
+            }
+            if(returnObject instanceof Boolean){
+                returnObject = new Boolean(false);
             }
             System.out.println("Unable to perform transaction.");
             e.printStackTrace();
