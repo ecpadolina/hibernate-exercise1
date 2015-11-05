@@ -42,4 +42,7 @@ public class PersonManagerHibernateImpl implements PersonManager{
   public List listPerson(int order, String column){
     return pdao.listPerson(order,column);
   }
+  public List listPersonWithRoles(int roleId){
+    return pdao.listPersonWithRoles(roleId);
+  }
 }

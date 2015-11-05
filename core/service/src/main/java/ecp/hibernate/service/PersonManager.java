@@ -9,4 +9,5 @@ public interface PersonManager{
 	void deletePerson(Person person);
 	Person getPerson(int personId);
 	List listPerson(int order, String column);
+	List listPersonWithRoles(int roleId);
 }

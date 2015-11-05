@@ -9,4 +9,5 @@ public interface PersonDao{
 	Boolean updatePerson(Person updatedPerson);
 	Boolean deletePerson(Person person);
 	List listPerson(int order, String column);
+	List listPersonWithRoles(int roleId);
 }

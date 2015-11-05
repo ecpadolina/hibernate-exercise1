@@ -110,9 +110,10 @@ public class Main{
                          + "\n[1] List Person By Id"
                          + "\n[2] List Person By Last Name"
                          + "\n[3] List Person By GWA"
-                         + "\n[4] Go Back"
+                         + "\n[4] List Person with Roles"
+                         + "\n[5] Go Back"
                          + "\nChoice: ";
-          option2 = v.validIntOption(optionDisplay, 1, 4);
+          option2 = v.validIntOption(optionDisplay, 1, 5);
           int order;
           optionDisplay = "Order By: \n[1] Ascending\n[2] Descending\n[3] Go Back\nChoice: ";
           switch(option2){
@@ -128,6 +129,8 @@ public class Main{
               order = v.validIntOption(optionDisplay, 1, 3);
               op.listPerson(order, "gwa");
               break;
+            case 4:
+              op.listPersonWithRoles();
           }
           break;
         case 5:

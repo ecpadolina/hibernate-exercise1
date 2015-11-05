@@ -5,6 +5,7 @@ import ecp.hibernate.dao.commands.Add;
 import ecp.hibernate.dao.commands.Delete;
 import ecp.hibernate.dao.commands.Update;
 import ecp.hibernate.dao.commands.GetList;
+import ecp.hibernate.dao.commands.CustomQuery;
 import ecp.hibernate.model.Person;
 import java.util.List;
 
@@ -29,4 +30,7 @@ public class PersonDaoHibernateImpl implements PersonDao{
     public List listPerson(int order, String column) {
         return HibernateUtil.perform(new GetList(order, column, Person.class), List.class);
 	}
+    public List listPersonWithRoles(int roleId){
+        return HibernateUtil.perform(new CustomQuery(roleId), List.class);
+    }
 }

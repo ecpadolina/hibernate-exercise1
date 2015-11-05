@@ -252,6 +252,22 @@ public class Options{
 			System.out.println("Person does not exist.");
 		}	
 	}
+
+	public void listPersonWithRoles(){
+		listRoles();
+		int id = v.validIntInput("Role ID: ");
+
+		List<Object[]> list;
+		list = pm.listPersonWithRoles(id);
+		if(!list.isEmpty()){
+			for(Object[] objects : list){
+				System.out.println("Person Id: " + (Integer)objects[0]);
+				System.out.println("Person Name: " + ((Name)objects[1]).toString());
+			}
+		} else {
+			System.out.println("Role hasn't been associated to person!");
+		}
+	}
 	
 	public void listPerson(int order, String column){
 	  List list;

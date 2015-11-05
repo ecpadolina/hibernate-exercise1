@@ -10,8 +10,8 @@
     <property name="connection.url">jdbc:postgresql://localhost/hibernate</property>
     <property name="hibernate.connection.username">ecp</property>
     <property name="hibernate.connection.password">ecp</property>
-    <property name="hibernate.generate_statistics">true</property>
-    <property name="show_sql">true</property>
+    <!--property name="hibernate.generate_statistics">true</property-->
+    <!--property name="show_sql">true</property-->
     <property name="hibernate.c3p0.min_size">5</property>
     <property name="hibernate.c3p0.max_size">20</property>
     <property name="hibernate.c3p0.timeout">300</property>

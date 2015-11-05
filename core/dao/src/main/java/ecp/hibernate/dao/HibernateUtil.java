@@ -7,7 +7,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.stat.Statistics;
-import org.hibernate.stat.EntityStatistics;
+import org.hibernate.stat.SecondLevelCacheStatistics;
 
 public class HibernateUtil{
 	private static SessionFactory factory;
@@ -45,7 +45,7 @@ public class HibernateUtil{
 		} catch (HibernateException e) {
             if (transaction != null) {
                 transaction.rollback();
-            }
+             }
             if(returnObject instanceof Boolean){
                 returnObject = new Boolean(false);
             }
@@ -54,7 +54,6 @@ public class HibernateUtil{
         } finally {
             session.close();
         }
-
         return returnClass.cast(returnObject);
     }
 }
