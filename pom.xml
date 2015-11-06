@@ -77,6 +77,12 @@
       <version>${sfehcache.version}</version>
     </dependency>
 
+    <dependency>
+      <groupId>org.hibernate.javax.persistence</groupId>
+      <artifactId>hibernate-jpa-2.1-api</artifactId>
+      <version>${persistence.version}</version>
+    </dependency>
+
   </dependencies>
   </dependencyManagement>
   
@@ -86,6 +92,7 @@
     <postgresql.version>9.4-1201-jdbc41</postgresql.version>
     <hibernate.version>4.3.10.Final</hibernate.version>
     <sfehcache.version>2.6.11</sfehcache.version>
+    <persistence.version>1.0.0.Final</persistence.version>
   </properties>
 
   <modules>

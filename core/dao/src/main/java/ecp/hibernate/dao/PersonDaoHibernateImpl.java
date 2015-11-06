@@ -15,8 +15,8 @@ public class PersonDaoHibernateImpl implements PersonDao{
         return HibernateUtil.perform(new Add(person), Boolean.class);
     }
 
-    public Person getPerson(int personID) {
-        return HibernateUtil.perform(new Get(personID, Person.class), Person.class);
+    public Person getPerson(int personID, String initCollection) {
+        return HibernateUtil.perform(new Get(personID, Person.class, initCollection), Person.class);
     }
 
     public Boolean updatePerson(Person updatedPerson) {

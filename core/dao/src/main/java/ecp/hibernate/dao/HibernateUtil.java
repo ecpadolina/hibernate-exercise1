@@ -8,6 +8,8 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.stat.Statistics;
 import org.hibernate.stat.SecondLevelCacheStatistics;
+import ecp.hibernate.model.Person;
+import org.hibernate.Hibernate;
 
 public class HibernateUtil{
 	private static SessionFactory factory;
@@ -28,11 +30,7 @@ public class HibernateUtil{
     public static SessionFactory getSessionFactory(){
         return factory;
     }
-
-    public static Session getSession(){
-        return session;
-    }
-
+    
     public static <T> T perform(Command command, Class<T> returnClass) {
         session = factory.openSession();
         Transaction transaction = session.beginTransaction();
@@ -54,6 +52,11 @@ public class HibernateUtil{
         } finally {
             session.close();
         }
+        Statistics stat = factory.getStatistics();
+        SecondLevelCacheStatistics personstat = stat.getSecondLevelCacheStatistics("ecp.hibernate.model.Person");
+        SecondLevelCacheStatistics rolestat = stat.getSecondLevelCacheStatistics("ecp.hibernate.model.Role");
+        System.out.println("Person: " + personstat.getHitCount());
+        System.out.println("Role: " + rolestat.getHitCount());
         return returnClass.cast(returnObject);
     }
 }

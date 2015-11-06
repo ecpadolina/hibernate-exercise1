@@ -1,8 +1,27 @@
 package ecp.hibernate.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Id;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Cacheable;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+
+@Entity
+@Table(name = "CONTACTINFO")
 public class ContactInfo{
+  
+  @Id
+  @Column(name = "contact_id")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
+  @Column(name = "contact_type")
   private String contactType;
+  @Column(name = "contact_info")
   private String contactInfo;
   
   public ContactInfo(){}

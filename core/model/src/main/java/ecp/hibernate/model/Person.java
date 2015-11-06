@@ -3,14 +3,57 @@ package ecp.hibernate.model;
 import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Id;
+import javax.persistence.Embedded;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
+import javax.persistence.FetchType;
+import javax.persistence.CascadeType;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
+import javax.persistence.Cacheable;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+
+@Entity
+@Table(name = "person")
+@Cacheable
+@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 public class Person{
+  @Id
+  @Column(name = "id")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
+  @Embedded
   private Name name;
+  @Embedded
   private Address address;
+  @Column(name = "gwa")
   private float gwa;
+  @Temporal(TemporalType.DATE)
+  @Column(name = "birthday")
   private Date birthday;
+  @Column(name = "employment_status")
   private String employmentStatus;
+  @Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
+  @OneToMany(fetch = FetchType.LAZY, 
+             cascade = CascadeType.ALL, 
+             orphanRemoval = true)
+  @JoinColumn(name="person_id")
   private Set<ContactInfo> contacts;
+  @ManyToMany(fetch = FetchType.LAZY, 
+              cascade = CascadeType.ALL)
+  @JoinTable(name="person_role", 
+             joinColumns = @JoinColumn(name = "person_id"), 
+             inverseJoinColumns = @JoinColumn(name = "role_id"))
   private Set<Role> roles;
 
   public Person(){}

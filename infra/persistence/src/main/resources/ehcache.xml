@@ -30,14 +30,6 @@
         timeToLiveSeconds="300">
         <persistence strategy="localTempSwap" />
     </cache>
-    <cache
-        name="ecp.hibernate.model.ContactInfo"
-        maxEntriesLocalHeap="1000"
-        eternal="false"
-        timeToIdleSeconds="300"
-        timeToLiveSeconds="300">
-        <persistence strategy="localTempSwap" />
-    </cache>
     <cache 
         name="org.hibernate.cache.spi.UpdateTimestampsCache" 
         maxEntriesLocalHeap="5000" 

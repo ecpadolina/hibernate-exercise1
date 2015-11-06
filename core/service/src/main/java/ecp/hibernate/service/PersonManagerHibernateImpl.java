@@ -35,8 +35,8 @@ public class PersonManagerHibernateImpl implements PersonManager{
       System.out.println("Person wasn't deleted");
   }
   
-  public Person getPerson(int id){
-    return pdao.getPerson(id);
+  public Person getPerson(int id, String initCollection){
+    return pdao.getPerson(id, initCollection);
   }
   
   public List listPerson(int order, String column){

@@ -12,7 +12,7 @@ public class RoleDaoHibernateImpl implements RoleDao{
         return HibernateUtil.perform(new GetList(1, "role_id", Role.class), List.class);
     }
     public Role getRole(int roleId) {
-        return HibernateUtil.perform(new Get(roleId, Role.class), Role.class);
+        return HibernateUtil.perform(new Get(roleId, Role.class, ""), Role.class);
     }
     public Boolean updateRole(Role role){
     	return HibernateUtil.perform(new Update(role), Boolean.class);

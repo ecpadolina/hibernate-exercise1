@@ -10,7 +10,8 @@
     <property name="connection.url">jdbc:postgresql://localhost/hibernate</property>
     <property name="hibernate.connection.username">ecp</property>
     <property name="hibernate.connection.password">ecp</property>
-    <!--property name="hibernate.generate_statistics">true</property-->
+    <property name="hibernate.generate_statistics">true</property>
+    <!--property name="hibernate.current_session_context_class">thread</property-->
     <!--property name="show_sql">true</property-->
     <property name="hibernate.c3p0.min_size">5</property>
     <property name="hibernate.c3p0.max_size">20</property>
@@ -25,8 +26,13 @@
     <property name="hibernate.cache.use_second_level_cache">true</property>
     <property name="hibernate.cache.use_query_cache">true</property>
     
-    <mapping resource="Person.hbm.xml"/>
+    <mapping class="ecp.hibernate.model.Person"/>
+    <mapping class="ecp.hibernate.model.ContactInfo"/>
+    <mapping class="ecp.hibernate.model.Role"/>
+
+    <!--<mapping resource="Person.hbm.xml"/>
     <mapping resource="ContactInfo.hbm.xml"/>
-    <mapping resource="Role.hbm.xml"/>
+    <mapping resource="Role.hbm.xml"/>-->
+
   </session-factory>
 </hibernate-configuration>

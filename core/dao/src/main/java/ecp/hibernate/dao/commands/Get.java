@@ -1,6 +1,7 @@
 package ecp.hibernate.dao.commands;
 
-import ecp.hibernate.model.Role;
+import org.hibernate.Hibernate;
+import ecp.hibernate.model.Person;
 import org.hibernate.Session;
 import ecp.hibernate.dao.Command;
 
@@ -8,10 +9,12 @@ public class Get<T> implements Command{
 	private Session session;
 	private Integer id;
 	private Class<T> entityClass;
+	private String initCollection;
 
-	public Get(Integer id, Class<T> entityClass){
+	public Get(Integer id, Class<T> entityClass, String initCollection){
 		this.id = id;
 		this.entityClass = entityClass;
+		this.initCollection = initCollection;
 	}
 
 	public void setSession(Session session){
@@ -19,6 +22,15 @@ public class Get<T> implements Command{
 	}
 
 	public Object execute(){
-		return session.get(entityClass, id);
+		Object obj = session.get(entityClass, id);
+		if(obj instanceof Person){
+			Person person = (Person)obj;
+			if(initCollection.contains("Contacts"))
+				person.getContacts().size();
+			if(initCollection.contains("Roles"))
+				person.getRoles().size();
+			obj = person;
+		}
+		return obj;
 	}
 }

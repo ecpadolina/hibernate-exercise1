@@ -1,12 +1,30 @@
 package ecp.hibernate.model;
 
 import java.util.Set;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Id;
+import javax.persistence.Column;
+import javax.persistence.ManyToMany;
+import javax.persistence.FetchType;
+import javax.persistence.Cacheable;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+@Entity
+@Table(name = "roles")
+@Cacheable
+@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 public class Role{
 
+  @Id
+  @Column(name = "role_id")
   private int role_id;
+  @Column(name = "role_type")
   private String role_type;
+  @Column(name = "isActive", nullable = false)
   private boolean isActive = true;
+  @ManyToMany(mappedBy="roles", fetch=FetchType.EAGER)
   private Set<Person> persons;
   
   public Role(){}
@@ -44,7 +62,7 @@ public class Role{
   public void setIsActive(boolean isActive){
     this.isActive = isActive;
   }
-  
+
   public boolean getIsActive(){
     return isActive;
   }

@@ -121,7 +121,7 @@ public class Options{
 	public void addContactToPerson(){
 	  System.out.print("Person ID: ");
 		int id = sc.nextInt();
-		Person person = pm.getPerson(id);
+		Person person = pm.getPerson(id, "Contacts");
 		if(person != null){
 		  Set<ContactInfo> contactInfo = person.getContacts();
 		  person.setContacts(newContact(contactInfo));
@@ -146,7 +146,7 @@ public class Options{
 	public void displayContactsOfPerson(){
 	  System.out.print("Person ID: ");
 	  int id = sc.nextInt();
-	  Person person = pm.getPerson(id);
+	  Person person = pm.getPerson(id,"Contacts");
 	  if(person != null){
 		  Set<ContactInfo> contacts = person.getContacts();
 		  if(!contacts.isEmpty()){
@@ -162,7 +162,7 @@ public class Options{
 	
 	public void editContactOfPerson(String type){
 	  int id = v.validIntInput("Person ID: ");
-	  Person person = pm.getPerson(id);
+	  Person person = pm.getPerson(id, "Contacts");
 	  if(person != null){
 	    Set<ContactInfo> contactInfo = person.getContacts();
 		    if(!contactInfo.isEmpty()){
@@ -193,7 +193,7 @@ public class Options{
 	
 	public void deleteContactOfPerson(){
 	  int id = v.validIntInput("Person ID: ");
-	  Person person = pm.getPerson(id);
+	  Person person = pm.getPerson(id, "Contacts");
 	  boolean check = false;
 	  if(person != null){
 	    Set<ContactInfo> contactInfo = person.getContacts();
@@ -233,7 +233,7 @@ public class Options{
   
   public void updatePerson(){
 	int id = v.validIntInput("Person ID: ");
-	Person person = pm.getPerson(id);
+	Person person = pm.getPerson(id, "'");
 	
 	if(person!=null){
 		pm.updatePerson(getPersonInfo(person));
@@ -244,7 +244,7 @@ public class Options{
 
 	public void deletePerson(){ 
 		int id = v.validIntInput("Person ID: ");
-		Person person = pm.getPerson(id);
+		Person person = pm.getPerson(id, "");
 
 		if(person!=null){
 			pm.deletePerson(person);
@@ -291,12 +291,12 @@ public class Options{
       System.out.println("Person Birthday: " + person.getBirthday().toString());
       System.out.println("Person Address: " + person.getAddress().toString());
       System.out.println("GWA: " + person.getGwa());
-      System.out.println("\nContact Information");
+      /*System.out.println("\nContact Information");
       displayContacts("",contacts);
       System.out.println("\nRoles");
       for(Role role : roles){
         System.out.println(role.getRole_type());
-      }
+      }*///doest work with lazy loading
     }
 	}
 	
@@ -346,7 +346,7 @@ public class Options{
 	
 	public void addRoleToPerson(){
 	  int id = v.validIntInput("Person Id: ");
-	  Person person = pm.getPerson(id);
+	  Person person = pm.getPerson(id, "");
 	  
 	  if(person != null){
 			Set<Role> set = person.getRoles();
@@ -359,7 +359,7 @@ public class Options{
 	
 	public void listPersonRoles(){
 	  int id = v.validIntInput("Person ID: ");
-	  Person person = pm.getPerson(id);
+	  Person person = pm.getPerson(id, "Roles");
 	  if(person != null){
 		  Set<Role> personRoles = person.getRoles();
 		  if(!personRoles.isEmpty()){
@@ -379,8 +379,7 @@ public class Options{
 	public void removeRoleFromPerson(){
 	  int id = v.validIntInput("Person Id: ");
 	  boolean roleExist = false;
-	  Person person = pm.getPerson(id);
-	  
+	  Person person = pm.getPerson(id,"Roles");
 	  if(person != null){
 	    Set<Role> personRoles = person.getRoles();
 	    if(!personRoles.isEmpty()){
